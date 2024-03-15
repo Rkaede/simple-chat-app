@@ -43,26 +43,14 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
             p({ children }) {
               return <p className="mb-2 last:mb-0">{children}</p>;
             },
-            code({ inline, className, children, ...props }: CodeComponentProps) {
-              if (!children || !Array.isArray(children)) {
-                return null;
-              }
-              if (children.length) {
-                if (children[0] == '▍') {
-                  return <span className="mt-1 cursor-default animate-pulse">▍</span>;
-                }
-
-                children[0] = (children[0] as string).replace('`▍`', '▍');
-              }
-
+            pre({ children }) {
+              return <pre>{children}</pre>;
+            },
+            code({ className, children, ...props }: CodeComponentProps) {
               const match = /language-(\w+)/.exec(className || '');
 
-              if (inline) {
-                return (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
+              if (!match) {
+                return <code className={className}>{children}</code>;
               }
 
               return (
