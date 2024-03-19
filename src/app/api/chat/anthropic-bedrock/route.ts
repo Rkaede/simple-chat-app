@@ -1,11 +1,10 @@
 import { AnthropicStream, StreamingTextResponse } from 'ai';
 import { AnthropicBedrock } from '@anthropic-ai/bedrock-sdk';
+import env from '@/environment';
 
-const anthropic = new AnthropicBedrock({
-  awsRegion: process.env._AWS_REGION,
-  awsAccessKey: process.env._AWS_ACCESS_KEY_ID,
-  awsSecretKey: process.env._AWS_SECRET_ACCESS_KEY,
-});
+const { awsRegion, awsAccessKey, awsSecretKey } = env;
+
+const anthropic = new AnthropicBedrock({ awsRegion, awsAccessKey, awsSecretKey });
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
