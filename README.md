@@ -27,9 +27,27 @@ A clone of the vercel chat template with the following features:
    npm run dev
    ```
 
+### Docker
+
+To run the application locally using Docker:
+
+```bash
+docker build -t simple-chat-app .
+```
+
+```bash
+# replace .env with your own .env file
+docker run --name simple-chat-app -p 3000:3000 --env-file .env.local simple-chat-app
+```
+
 ## Deploying
 
-## AWS Amplify
+The simplest way to deploy this app to AWS is either through AWS Amplify or AWS Lightsail.
+
+### AWS Amplify
+
+> [!NOTE]
+> AWS Amplify does not support streaming responses form Next.js applications.
 
 1. Fork this repository
 2. Create a new project in the [AWS Amplify Console](https://console.aws.amazon.com/amplify/home) and connect it to your forked repo.
@@ -57,3 +75,27 @@ frontend:
         - env | grep -e APP_AWS_REGION -e APP_AWS_ACCESS_KEY_ID -e APP_AWS_SECRET_ACCESS_KEY | sed 's/APP_//1' >> .env.production
     # ...
 ```
+
+### AWS Lightsail
+
+A docker image is available on Docker Hub at `coreym/simple-chat-app`. To deploy to Lightsail, follow these steps:
+
+1. Go to the [Lightsail console](https://lightsail.aws.amazon.com/ls/webapp/home/containers) and create a new container service.
+
+1. Select the nano capacity.
+
+1. In the "Set up your first deployment" section, select "Specify a custom deployment"
+
+1. Specify any container name you want, and then enter `coreym/simple-chat-app:latest` for the image.
+
+1. Add the following environment variables to the container service:
+
+   - `APP_AWS_REGION`: The region hosting the bedrock models (e.g. `us-east-1`)
+   - `APP_AWS_ACCESS_KEY_ID`: The AWS access key ID that has access to the bedrock models
+   - `APP_AWS_SECRET_ACCESS_KEY`: The AWS secret access key
+
+1. Under "Open Ports", add 3000 to "HTTP".
+
+1. Deploy!
+
+Please note that this will be publicly accessible. Add security through a reverse proxy if you want to keep it private.
