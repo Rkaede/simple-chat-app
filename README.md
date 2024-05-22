@@ -18,21 +18,13 @@ A clone of the vercel chat template with the following features:
 3. Install the dependencies:
 
    ```bash
-   # using npm
    npm install
-
-   # using bun
-   bun install
    ```
 
 4. Start the development server:
 
    ```bash
-   # using npm
    npm run dev
-
-   # using bun
-   bun dev
    ```
 
 ## Deploying
