@@ -11,6 +11,10 @@ A clone of the vercel chat template with the following features:
 - Node.js 20.x
 - AWS Credentials with access to the bedrock models
 
+## Password Protection
+
+Basic password protection is available by setting the `APP_PASSWORD` environment variable. When set, users will be prompted to enter the password before they can access the chat.
+
 ## Running Locally
 
 1. Clone the repository
